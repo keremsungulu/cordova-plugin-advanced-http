@@ -288,21 +288,13 @@ module.exports = function init(global, jsUtil, cookieHandler, messages, base64, 
 
   function injectCookieHandler(url, cb) {
     return function (response) {
-      alert("before cookieHandler.setCookieFromString");
       cookieHandler.setCookieFromString(url, resolveCookieString(response.headers));
-      alert("before cb(response)");
       cb(response);
     }
   }
 
   function injectRawResponseHandler(responseType, success, failure) {
     return function (response) {
-      if (`${responseType}: ${response.data}`) {
-        alert( response.data);
-      }
-      else{
-        alert("json gelmedi :(");
-      }
       var dataType = jsUtil.getTypeOf(response.data);
 
       // don't need post-processing if it's already binary type (on browser platform)
@@ -310,26 +302,20 @@ module.exports = function init(global, jsUtil, cookieHandler, messages, base64, 
         return success(response);
       }
 
-      alert("0 - before parse");
-
       try {
         // json
         if (responseType === validResponseTypes[1]) {
-          alert("1 - validResponseTypes[1]");
 
-          if (response.data === '') {
-            alert("1.1 - empty");
-            response.data =  null;
-          }
-          else {
-            alert("1.2 - JSON.parse");
-            response.data =JSON.parse(response.data);
-          }
+          // if (response.data === '') {
+          //   response.data =  null;
+          // }
+          // else {
+          //   response.data =JSON.parse(response.data);
+          // }
         }
 
         // arraybuffer
         else if (responseType === validResponseTypes[2]) {
-          alert("2 - validResponseTypes[2]");
           response.data = response.data === ''
             ? null
             : base64.toArrayBuffer(response.data);
@@ -338,20 +324,16 @@ module.exports = function init(global, jsUtil, cookieHandler, messages, base64, 
         // blob
         else if (responseType === validResponseTypes[3]) {
           if (response.data === '') {
-            alert("3 - validResponseTypes[3]");
             response.data = null;
           } else {
-            alert("3.1");
             var buffer = base64.toArrayBuffer(response.data);
             var type = response.headers['content-type'] || '';
             var blob = new Blob([buffer], { type: type });
             response.data = blob;
           }
         }
-        alert(`4 - Parsed Data: ${response.data}`);
-        alert("5 - before success");
+
         success(response);
-        alert("6 - after success");
       } catch (error) {
         failure({
           status: errorCodes.POST_PROCESSING_FAILED,

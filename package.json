@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-tls-http",
-  "version": "3.1.6",
+  "version": "3.1.7",
   "description": "Cordova / Phonegap plugin for communicating with HTTP servers using SSL pinning",
   "scripts": {
     "updatecert": "node ./scripts/update-e2e-server-cert.js && node ./scripts/update-e2e-client-cert.js",
