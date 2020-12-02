@@ -295,6 +295,9 @@ module.exports = function init(global, jsUtil, cookieHandler, messages, base64, 
 
   function injectRawResponseHandler(responseType, success, failure) {
     return function (response) {
+
+      alert(response.data);
+
       var dataType = jsUtil.getTypeOf(response.data);
 
       // don't need post-processing if it's already binary type (on browser platform)
@@ -333,7 +336,6 @@ module.exports = function init(global, jsUtil, cookieHandler, messages, base64, 
           }
         }
 
-        alert(response.data);
         success(response);
       } catch (error) {
         failure({

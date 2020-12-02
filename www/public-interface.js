@@ -150,9 +150,9 @@ module.exports = function init(exec, cookieHandler, urlUtil, helpers, globalConf
       case 'post':
       case 'put':
       case 'patch':
-        helpers.processData(options.data, options.serializer, function (data) {
+        // helpers.processData(options.data, options.serializer, function (data) {
           exec(onSuccess, onFail, 'CordovaHttpPlugin', options.method, [url, data, options.serializer, headers, options.timeout, options.followRedirect, options.responseType, reqId]);
-        });
+        // });
         break;
       case 'upload':
         var fileOptions = helpers.checkUploadFileOptions(options.filePath, options.name);
