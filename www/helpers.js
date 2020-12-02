@@ -325,9 +325,6 @@ module.exports = function init(global, jsUtil, cookieHandler, messages, base64, 
             alert("1.2 - JSON.parse");
             response.data =JSON.parse(response.data);
           }
-
-            ? undefined
-            :
         }
 
         // arraybuffer
