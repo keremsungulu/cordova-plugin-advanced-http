@@ -306,12 +306,12 @@ module.exports = function init(global, jsUtil, cookieHandler, messages, base64, 
         // json
         if (responseType === validResponseTypes[1]) {
 
-          // if (response.data === '') {
-          //   response.data =  null;
-          // }
-          // else {
-          //   response.data =JSON.parse(response.data);
-          // }
+          if (response.data === '') {
+            response.data =  null;
+          }
+          else {
+            // response.data =JSON.parse(response.data);
+          }
         }
 
         // arraybuffer
@@ -333,6 +333,7 @@ module.exports = function init(global, jsUtil, cookieHandler, messages, base64, 
           }
         }
 
+        alert(response.data);
         success(response);
       } catch (error) {
         failure({
