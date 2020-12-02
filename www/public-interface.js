@@ -152,6 +152,7 @@ module.exports = function init(exec, cookieHandler, urlUtil, helpers, globalConf
       case 'put':
       case 'patch':
         // helpers.processData(options.data, options.serializer, function (data) {
+
           exec(onSuccess, onFail, 'CordovaHttpPlugin', options.method, [url, options.data, options.serializer, headers, options.timeout, options.followRedirect, options.responseType, reqId]);
         // });
         break;

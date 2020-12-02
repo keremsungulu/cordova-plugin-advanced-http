@@ -35,10 +35,8 @@ module.exports = function init(storage, ToughCookie, WebStorageCookieStore) {
   function setCookieFromString(url, cookieStr) {
     if (!cookieStr) return;
 
-    alert("before splitCookieString");
     var cookies = splitCookieString(cookieStr);
 
-    alert("before setCookieSync");
     for (var i = 0; i < cookies.length; ++i) {
       cookieJar.setCookieSync(cookies[i], url, { ignoreError: true });
     }
