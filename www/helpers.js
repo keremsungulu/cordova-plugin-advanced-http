@@ -288,7 +288,9 @@ module.exports = function init(global, jsUtil, cookieHandler, messages, base64, 
 
   function injectCookieHandler(url, cb) {
     return function (response) {
+      alert("before cookieHandler.setCookieFromString");
       cookieHandler.setCookieFromString(url, resolveCookieString(response.headers));
+      alert("before cb(response)");
       cb(response);
     }
   }
@@ -314,9 +316,18 @@ module.exports = function init(global, jsUtil, cookieHandler, messages, base64, 
         // json
         if (responseType === validResponseTypes[1]) {
           alert("1 - validResponseTypes[1]");
-          response.data = response.data === ''
+
+          if (response.data === '') {
+            alert("1.1 - empty");
+            response.data =  null;
+          }
+          else {
+            alert("1.2 - JSON.parse");
+            response.data =JSON.parse(response.data);
+          }
+
             ? undefined
-            : JSON.parse(response.data);
+            :
         }
 
         // arraybuffer
@@ -340,8 +351,10 @@ module.exports = function init(global, jsUtil, cookieHandler, messages, base64, 
             response.data = blob;
           }
         }
-        alert("4 - before success");
+        alert(`4 - Parsed Data: ${response.data}`);
+        alert("5 - before success");
         success(response);
+        alert("6 - after success");
       } catch (error) {
         failure({
           status: errorCodes.POST_PROCESSING_FAILED,
