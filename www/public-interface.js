@@ -148,6 +148,7 @@ module.exports = function init(exec, cookieHandler, urlUtil, helpers, globalConf
 
     switch (options.method) {
       case 'post':
+      case 'POST':
       case 'put':
       case 'patch':
         // helpers.processData(options.data, options.serializer, function (data) {
