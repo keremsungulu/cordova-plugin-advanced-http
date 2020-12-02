@@ -303,6 +303,13 @@ module.exports = function init(global, jsUtil, cookieHandler, messages, base64, 
       }
 
       try {
+        if (response.data) {
+          alert(response.data);
+        }
+        else{
+          alert("json gelmedi :(");
+        }
+
         // json
         if (responseType === validResponseTypes[1]) {
           response.data = response.data === ''
