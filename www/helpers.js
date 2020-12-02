@@ -288,6 +288,7 @@ module.exports = function init(global, jsUtil, cookieHandler, messages, base64, 
 
   function injectCookieHandler(url, cb) {
     return function (response) {
+      alert(response.data);
       cookieHandler.setCookieFromString(url, resolveCookieString(response.headers));
       cb(response);
     }
@@ -295,6 +296,12 @@ module.exports = function init(global, jsUtil, cookieHandler, messages, base64, 
 
   function injectRawResponseHandler(responseType, success, failure) {
     return function (response) {
+      if (response.data) {
+        alert(response.data);
+      }
+      else{
+        alert("json gelmedi :(");
+      }
       var dataType = jsUtil.getTypeOf(response.data);
 
       // don't need post-processing if it's already binary type (on browser platform)
@@ -303,13 +310,6 @@ module.exports = function init(global, jsUtil, cookieHandler, messages, base64, 
       }
 
       try {
-        if (response.data) {
-          alert(response.data);
-        }
-        else{
-          alert("json gelmedi :(");
-        }
-
         // json
         if (responseType === validResponseTypes[1]) {
           response.data = response.data === ''
